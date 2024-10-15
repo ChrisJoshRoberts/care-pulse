@@ -28,11 +28,17 @@ interface CustomProps {
   renderSkeleton?: (field: any) => React.ReactNode,
 }
 
-const RenderInput = () => {
-  
+const RenderField = ({field, props} : {field: any; props: CustomProps}) => {
+  return (
+    <Input
+      type='text'
+      placeholder='John Doe'
+    />
+  )
 }
 
-const CustomFormField = ({ control, fieldType, name, label}:CustomProps) => {
+const CustomFormField = ( props: CustomProps) => {
+  const { control, fieldType, name, label } = props
   return (
     <FormField
     control={control}
@@ -42,6 +48,12 @@ const CustomFormField = ({ control, fieldType, name, label}:CustomProps) => {
         {fieldType === FormFieldType.CHECKBOX && label &&(
           <FormLabel>{label}</FormLabel>
         )}
+        
+        <RenderField
+          field={field}
+          props={props}
+        /> 
+        <FormMessage className='shad-error' /> 
       </FormItem>
     )}
   />
